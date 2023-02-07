@@ -1,1 +1,4 @@
 /node_modules
+.tool-versions
+.env
+.vscode
