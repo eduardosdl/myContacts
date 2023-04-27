@@ -5,23 +5,26 @@ import ContactsService from '../../services/ContactsService';
 
 export default function NewContact() {
   async function handleSubmit(formData) {
-    const contact = {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      category_id: formData.categoryId,
-    };
+    try {
+      const contact = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        category_id: formData.categoryId,
+      };
 
-    await ContactsService.createContacts(contact);
+      const response = await ContactsService.createContacts(contact);
+
+      console.log(response);
+    } catch (error) {
+      alert('Houve um erro no envio');
+    }
   }
 
   return (
     <>
       <PageHeader title="Novo contato" />
-      <ContactForm
-        buttonLabel="Cadastrar"
-        onSubmit={handleSubmit}
-      />
+      <ContactForm buttonLabel="Cadastrar" onSubmit={handleSubmit} />
     </>
   );
 }
