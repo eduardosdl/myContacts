@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-nested-ternary */
-import {
-  useEffect, useMemo, useState, useCallback,
-} from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import arrow from '../../assets/image/icons/arrow.svg';
@@ -36,9 +34,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const filteredContacts = useMemo(() => contacts.filter((contact) => (
-    contact.name.toLowerCase().includes(searchTerm.toLowerCase())
-  )), [contacts, searchTerm]);
+  const filteredContacts = useMemo(
+    () =>
+      contacts.filter((contact) => contact.name.toLowerCase().includes(searchTerm.toLowerCase())),
+    [contacts, searchTerm]
+  );
 
   const loadContacts = useCallback(async () => {
     try {
@@ -59,9 +59,7 @@ export default function Home() {
   }, [loadContacts]);
 
   function handleToggleOrderBy() {
-    setOrderBy(
-      (prevState) => (prevState === 'asc' ? 'desc' : 'asc'),
-    );
+    setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
   }
 
   function handleChangeSearchTerm(event) {
@@ -88,17 +86,9 @@ export default function Home() {
       )}
 
       <Header
-        justfyContent={
-          hasError
-            ? 'flex-end'
-            : (
-              contacts.length > 0
-                ? 'space-between'
-                : 'center'
-            )
-        }
+        justfyContent={hasError ? 'flex-end' : contacts.length > 0 ? 'space-between' : 'center'}
       >
-        {(!hasError && contacts.length > 0) && (
+        {!hasError && contacts.length > 0 && (
           <strong>
             {filteredContacts.length}
             {filteredContacts.length === 1 ? ' contato' : ' contatos'}
@@ -121,23 +111,23 @@ export default function Home() {
 
       {!hasError && (
         <>
-          {(contacts.length < 1 && !isLoading) && (
+          {contacts.length < 1 && !isLoading && (
             <EmptyListContainer>
               <img src={emptyBox} alt="Empty Box" />
 
               <p>
-                Você ainda não tem nenhum contato cadastrado!
-                Clique no botão <strong>”Novo contato” </strong>
-                à cima para cadastrar o seu primeiro!
+                Você ainda não tem nenhum contato cadastrado! Clique no botão{' '}
+                <strong>”Novo contato” </strong>à cima para cadastrar o seu primeiro!
               </p>
-
             </EmptyListContainer>
           )}
 
-          {(contacts.length > 0 && filteredContacts.length < 1) && (
+          {contacts.length > 0 && filteredContacts.length < 1 && (
             <SearchNotFounderContainer>
               <img src={magnifierQuestion} alt="search error" />
-              <span>Nenhum resultado foi encontrado para <strong>”{searchTerm}”</strong>.</span>
+              <span>
+                Nenhum resultado foi encontrado para <strong>”{searchTerm}”</strong>.
+              </span>
             </SearchNotFounderContainer>
           )}
 
@@ -155,9 +145,7 @@ export default function Home() {
               <div className="info">
                 <div className="contact-name">
                   <strong>{contact.name}</strong>
-                  {contact.category_name && (
-                    <small>{contact.category_name}</small>
-                  )}
+                  {contact.category_name && <small>{contact.category_name}</small>}
                 </div>
                 <span>{contact.email}</span>
                 <span>{formatPhone(contact.phone)}</span>
