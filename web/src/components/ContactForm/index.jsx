@@ -22,11 +22,9 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
   const [isLoadCategories, setIsLoadCategories] = useState(true);
   const [isSubmiting, setIsSubmiting] = useState(false);
 
-  const {
-    errors, setError, removeError, getErrorMessageByFieldName,
-  } = useErrors();
+  const { errors, setError, removeError, getErrorMessageByFieldName } = useErrors();
 
-  const isFormValid = (name && errors.length === 0);
+  const isFormValid = name && errors.length === 0;
 
   useEffect(() => {
     async function loadCategories() {
@@ -34,7 +32,8 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
         const categoriesList = await CategoriesService.listCategories();
 
         setCategories(categoriesList);
-      } catch {} finally {
+      } catch {
+      } finally {
         setIsLoadCategories(false);
       }
     }
@@ -72,13 +71,11 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
     setIsSubmiting(true);
 
     await onSubmit({
-      name, email, phone, categoryId,
+      name,
+      email,
+      phone,
+      categoryId,
     });
-
-    setName('');
-    setEmail('');
-    setPhone('');
-    setCategories([]);
 
     setIsSubmiting(false);
   }
