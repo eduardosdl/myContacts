@@ -8,9 +8,13 @@ import { Container } from './styles';
 
 export default function ToastMessage({ message, onRemoveMessage }) {
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       onRemoveMessage(message.id);
     }, message.duration || 7000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [message, onRemoveMessage]);
 
   function handleRemoveToast() {
