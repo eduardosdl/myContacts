@@ -26,14 +26,24 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
 
   const isFormValid = name && errors.length === 0;
 
-  useImperativeHandle(ref, () => ({
-    setFieldsValues: (contact) => {
-      setName(contact.name);
-      setEmail(contact.email);
-      setPhone(contact.phone);
-      setCategoryId(contact.category_id);
-    },
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      setFieldsValues: (contact) => {
+        setName(contact.name ?? '');
+        setEmail(contact.email ?? '');
+        setPhone(formatPhone(contact.phone ?? ''));
+        setCategoryId(contact.category_id ?? '');
+      },
+      resetFields: () => {
+        setName('');
+        setEmail('');
+        setPhone('');
+        setCategoryId('');
+      },
+    }),
+    []
+  );
 
   useEffect(() => {
     async function loadCategories() {
@@ -85,11 +95,6 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
       phone,
       categoryId,
     });
-
-    setName('');
-    setEmail('');
-    setPhone('');
-    setCategoryId('');
 
     setIsSubmiting(false);
   }
