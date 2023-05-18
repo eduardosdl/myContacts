@@ -20,6 +20,14 @@ export default function Modal({
     return null;
   }
 
+  let container = document.getElementById('modal-root');
+
+  if (!container) {
+    container = document.createElement('div');
+    container.setAttribute('id', 'modal-root');
+    document.body.appendChild(container);
+  }
+
   return ReactDOM.createPortal(
     <Overlay>
       <Container danger={danger}>
@@ -37,7 +45,7 @@ export default function Modal({
         </Footer>
       </Container>
     </Overlay>,
-    document.getElementById('modal-root')
+    container
   );
 }
 
