@@ -19,7 +19,7 @@ export default function NewContact() {
       };
 
       await ContactsService.createContacts(contact);
-      contactFormRef.resetFields();
+      contactFormRef.current.resetFields();
 
       toast({ type: 'success', text: 'Contato cadastrado com sucesso!', duration: 3000 });
     } catch (error) {
