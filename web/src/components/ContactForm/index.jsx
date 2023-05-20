@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import isEmailValid from '../../utils/isEmailValid';
 import formatPhone from '../../utils/formatPhone';
 import useErrors from '../../hooks/useErrors';
+import useSafeAsyncState from '../../hooks/useSafeAsyncState';
 import CategoriesService from '../../services/CategoriesService';
 
 import FormGroup from '../FormGroup';
@@ -17,8 +18,8 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [categories, setCategories] = useState([]);
+  const [categoryId, setCategoryId] = useSafeAsyncState('');
+  const [categories, setCategories] = useSafeAsyncState([]);
   const [isLoadCategories, setIsLoadCategories] = useState(true);
   const [isSubmiting, setIsSubmiting] = useState(false);
 
@@ -58,7 +59,7 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
     }
 
     loadCategories();
-  }, []);
+  }, [setCategories, setIsLoadCategories]);
 
   function handleNameChange(event) {
     setName(event.target.value);
