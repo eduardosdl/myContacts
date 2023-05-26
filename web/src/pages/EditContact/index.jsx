@@ -7,6 +7,7 @@ import toast from '../../utils/toast';
 import PageHeader from '../../components/PageHeader';
 import ContactForm from '../../components/ContactForm';
 import Loader from '../../components/Loader';
+import useIsMounted from '../../hooks/useIsMounted';
 
 export default function NewContact() {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,23 +17,28 @@ export default function NewContact() {
 
   const { id } = useParams();
   const history = useHistory();
+  const isMounted = useIsMounted();
 
   useEffect(() => {
     async function loadContact() {
       try {
         const contact = await ContactsService.getContactById(id);
 
-        contactFormRef.current.setFieldsValues(contact);
-        setIsLoading(false);
-        setContactName(contact.name);
+        if (isMounted) {
+          contactFormRef.current.setFieldsValues(contact);
+          setIsLoading(false);
+          setContactName(contact.name);
+        }
       } catch {
         history.push('/');
-        toast({ type: 'danger', text: 'Contato não encontrado' });
+        if (isMounted()) {
+          toast({ type: 'danger', text: 'Contato não encontrado' });
+        }
       }
     }
 
     loadContact();
-  }, [id, history]);
+  }, [id, history, isMounted]);
 
   async function handleSubmit(formData) {
     try {
