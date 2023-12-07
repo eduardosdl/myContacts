@@ -18,7 +18,6 @@
   "plugins": [
     "react",
     "react-hooks",
-    "@typescript-eslint",
     "prettier"
   ],
   "rules": {
