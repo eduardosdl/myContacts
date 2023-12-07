@@ -1,4 +1,4 @@
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 
 import ContactsService from '../../services/ContactsService';
@@ -16,7 +16,7 @@ export default function NewContact() {
   const contactFormRef = useRef(null);
 
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const isMounted = useIsMounted();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function NewContact() {
           setContactName(contact.name);
         }
       } catch {
-        history.push('/');
+        navigate('/');
         if (isMounted()) {
           toast({ type: 'danger', text: 'Contato não encontrado' });
         }
@@ -38,7 +38,7 @@ export default function NewContact() {
     }
 
     loadContact();
-  }, [id, history, isMounted]);
+  }, [id, navigate, isMounted]);
 
   async function handleSubmit(formData) {
     try {
