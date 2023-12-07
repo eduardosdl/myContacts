@@ -132,7 +132,7 @@ export default function Home() {
       )}
 
       <Header
-        justfyContent={hasError ? 'flex-end' : contacts.length > 0 ? 'space-between' : 'center'}
+        justfycontent={hasError ? 'flex-end' : contacts.length > 0 ? 'space-between' : 'center'}
       >
         {!hasError && contacts.length > 0 && (
           <strong>
@@ -178,7 +178,7 @@ export default function Home() {
           )}
 
           {filteredContacts.length > 0 && (
-            <ListHeader orderBy={orderBy}>
+            <ListHeader orderby={orderBy}>
               <button type="button" onClick={handleToggleOrderBy}>
                 <span>Nome</span>
                 <img src={arrow} alt="arrow icon" />

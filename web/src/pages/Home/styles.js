@@ -27,7 +27,7 @@ export const InputSearchContainer = styled.div`
 export const Header = styled.header`
   display: flex;
   align-items: center;
-  justify-content: ${({ justfyContent }) => justfyContent};
+  justify-content: ${({ justfycontent }) => justfycontent};
   margin-top: 24px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.gray[100]};
   padding-bottom: 16px;
@@ -68,11 +68,10 @@ export const ListHeader = styled.header`
     }
 
     img {
-      transform: ${({ orderBy }) => (orderBy === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)')};
+      transform: ${({ orderby }) => (orderby === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)')};
       transition: transform 0.2s ease-in;
     }
   }
-
 `;
 
 export const Card = styled.div`
@@ -144,7 +143,6 @@ export const EmptyListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
 
   p {
     color: ${({ theme }) => theme.colors.gray[200]};

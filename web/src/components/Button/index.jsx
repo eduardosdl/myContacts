@@ -6,7 +6,12 @@ import { StyledButton } from './styles';
 
 export default function Button({ type, disabled, isLoading, onClick, children, danger }) {
   return (
-    <StyledButton type={type} disabled={disabled || isLoading} onClick={onClick} danger={danger}>
+    <StyledButton
+      type={type}
+      disabled={disabled || isLoading}
+      onClick={onClick}
+      danger={danger ? 'true' : ''}
+    >
       {isLoading ? <Spinner size={16} /> : children}
     </StyledButton>
   );
