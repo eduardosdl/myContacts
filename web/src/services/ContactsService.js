@@ -2,7 +2,7 @@ import HttpClient from './utils/HttpClient';
 
 class ContactsService {
   constructor() {
-    this.httpClient = new HttpClient('http://localhost:3000');
+    this.httpClient = new HttpClient('https://mycontacts-bub07ti1.b4a.run');
   }
 
   listContacts(orderBy = 'asc') {
